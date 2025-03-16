@@ -68,7 +68,7 @@ def findDecryptionExponent(P,Q,E,LOWER_BOUND, output=False):
     qminus1 = tm.mkTerm(Kind.SUB, prime2, ONE)
     totientN = tm.mkTerm(Kind.MULT, pminus1, qminus1)
 
-    # Rule: Exponents must be mutliplicative inverses of each other modulo totient n
+    # Rule: Exponents must be multiplicative inverses of each other modulo totient n
     ed = tm.mkTerm(Kind.MULT, encrypt, decrypt)
     moduloED = tm.mkTerm(Kind.INTS_MODULUS, ed, totientN)
     moduloCongruence = tm.mkTerm(Kind.EQUAL, moduloED, ONE)

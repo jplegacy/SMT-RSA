@@ -64,14 +64,14 @@ def isValidRSAConfiguration(P,Q,E,D, output=False):
     p3 = tm.mkTerm(Kind.DISTINCT, prime1, prime2)
     solver.assertFormula(p3)
 
-    # Rule: Expononts must be greater than 1
+    # Rule: Exponents must be greater than 1
     e1 = tm.mkTerm(Kind.GT, encrypt, ONE)
     solver.assertFormula(e1)
 
     d1 = tm.mkTerm(Kind.GT, decrypt, ONE)
     solver.assertFormula(d1)
 
-    # Rule: Encryption Exponont must be relatively prime to totient n
+    # Rule: Encryption Exponent must be relatively prime to totient n
     cd = tm.mkConst(INT, 'commonDenominator')
     divideEncryption = tm.mkTerm(Kind.INTS_MODULUS, encrypt, cd)
     divideTotient = tm.mkTerm(Kind.INTS_MODULUS, totientN, cd)
@@ -97,7 +97,7 @@ def isValidRSAConfiguration(P,Q,E,D, output=False):
 
     solver.assertFormula(greatestCommonDivisorCondition)
 
-    # Rule: Exponents must be mutliplicative inverses of each other modulo totient n
+    # Rule: Exponents must be multiplicative inverses of each other modulo totient n
     ed = tm.mkTerm(Kind.MULT, encrypt, decrypt)
     moduloED = tm.mkTerm(Kind.INTS_MODULUS, ed, totientN)
     moduloCongruence = tm.mkTerm(Kind.EQUAL, moduloED, ONE)

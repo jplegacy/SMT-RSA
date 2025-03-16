@@ -13,7 +13,7 @@ THE PARAMETERS ARE
     - BITWIDTH_MAX: This is the Bitwidth size for bitvectors
         (Disclaimer - If the bitwidth is too small, it will crash during the experiment)
 
-    - DATA_DIRECTORY: This specifies the path where the experiement will dump its data
+    - DATA_DIRECTORY: This specifies the path where the experiment will dump its data
         Right now, the name schema is
             <type>_e<NUM_OF_EXPERIMENTS>d<LOWER_BOUND>b<BITWIDTH_MAX>.csv
 """

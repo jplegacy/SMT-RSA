@@ -14,7 +14,7 @@ THE PARAMETERS ARE
     - BITWIDTH_MAX: This is the Bitwidth size for bitvectors
         (Disclaimer - If the bitwidth is too small, it will crash during the experiment)
 
-    - DATA_DIRECTORY: This specifies the path where the experiement will dump its data
+    - DATA_DIRECTORY: This specifies the path where the experiment will dump its data
         Right now, the name schema of each file is
             <type>_bound<INTEGER_BOUND>bw<BITWIDTH_MAX>.csv
 """

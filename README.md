@@ -30,15 +30,15 @@ Since a prime is relatively prime to all numbers except any numbers that are mul
 
 For this experiment, I utilize Sympy's *i*th prime function to generate *n* primes, and I stored them in a list. Here, I have a notion of a *window*. This is essentially how I pick the prime and exponent from the list of primes.
 
-Since E has to be relatively prime to p-1 and q-1, this was a bit tricky to get around. My main solution was the *CONSEQUTATIVE WINDOW* which just takes p,q,e to be consequtative primes. This idea came from the way Euclid's Theorem is proved.
+Since E has to be relatively prime to p-1 and q-1, this was a bit tricky to get around. My main solution was the *CONSECUTIVE WINDOW* which just takes p,q,e to be consecutive primes. This idea came from the way Euclid's Theorem is proved.
 
-Since RSA works better when primes p,q are farther apart, I initally tried to encorporate, what I called the *FORWARD SPLIT WINDOW* which just takes the ith prime and chooses the second prime to be the "farthest" distance in the list and locks the encryption exponent to be 65537. It turns out this doesn't work for the 45092th prime :expressionless:.
+Since RSA works better when primes p,q are farther apart, I initially tried to incorporated, what I called the *FORWARD SPLIT WINDOW* which just takes the ith prime and chooses the second prime to be the "farthest" distance in the list and locks the encryption exponent to be 65537. It turns out this doesn't work for the 45092th prime :expressionless:.
 
 > This encryption exponent is an RSA standard because of it having a lot of special number-theoretical properties.
 
 #### Results
 
-After running an experiment checking 200,000 cases, on the first 200,003 primes using the Consequative Prime window, I got the following
+After running an experiment checking 200,000 cases, on the first 200,003 primes using the Consecutive Prime window, I got the following
 
 
 Normal Time            |  Logarithmic Time (for better resolution)
@@ -87,16 +87,16 @@ All data           |  10% of data (for better resolution)
 
 Notice on average, there exists less inputs where the distance is 0 and less inputs where the distance is at its max which is 60 in this run.
 
-Since their exist more combinations of input with a euclidean distance near the middle of our range then near the extremes, we naturally get a skewed range of values more based around the center. However, coincedentally this seems to show that CVC5 seems to perform worse or works harder for both types of theories when the input is near the middle, implying when inputs the most spread out these tend to be the harder values to verify. We can quickly  rule out the possiblity of the slowest processes corresponding to the function calls where the input values are near the same value since the density of points near the extremes have a consistent line going from one extreme to the other. 
+Since their exist more combinations of input with a euclidean distance near the middle of our range then near the extremes, we naturally get a skewed range of values more based around the center. However, coincidentally this seems to show that CVC5 seems to perform worse or works harder for both types of theories when the input is near the middle, implying when inputs the most spread out these tend to be the harder values to verify. We can quickly  rule out the possibility of the slowest processes corresponding to the function calls where the input values are near the same value since the density of points near the extremes have a consistent line going from one extreme to the other. 
 
 ##  Thoughts / Challenges / Conclusion
 
-In these experiments I would of liked to conduct them on a much larger scales and less trival problems, however the problem space explodes with larger numbers and CVC5 just can't work with numbers that are large.
+In these experiments I would of liked to conduct them on a much larger scales and less trivial problems, however the problem space explodes with larger numbers and CVC5 just can't work with numbers that are large.
 
 ![Integer Overflow](./images/core/integerOverflow.png) 
 
-With this, I can say that this was probably not the best topic to choose for the given logics we learned but nonetheless it was very informative at seeing the limitations of utilizing SMT. Additionally, a lot of the "properties" RSA relies on are just probablistic which doesn't really pair with these discrete systems.
+With this, I can say that this was probably not the best topic to choose for the given logics we learned but nonetheless it was very informative at seeing the limitations of utilizing SMT. Additionally, a lot of the "properties" RSA relies on are just probabilistic which doesn't really pair with these discrete systems.
 
-When it came to developing the Bitvector specificiation, I didn't take into account how bitvector multiplcation would happen for numbers with respect to the bit width. So right now, the way I have it implemented, is that it assumes that the given BITWIDTH will be contained/padded enough to cover the multiplication. If it is not, when verifying RSA, you either get that all true answers become false or you get a bit overflow problem. Moreover, there was not any good ways to do bitvector exponentiation, so I couldn't verify all messages like the way I did for integers.  
+When it came to developing the Bitvector specification, I didn't take into account how bitvector multiplication would happen for numbers with respect to the bit width. So right now, the way I have it implemented, is that it assumes that the given BITWIDTH will be contained/padded enough to cover the multiplication. If it is not, when verifying RSA, you either get that all true answers become false or you get a bit overflow problem. Moreover, there was not any good ways to do bitvector exponentiation, so I couldn't verify all messages like the way I did for integers.  
 
-When it comes to the experiments, I refrained from using completely randomized approaches since they typically don't accurately showcase how performance is dispersed. So I didnt really want to utilize a RSA library in python that is actively maximizing randomness however I did implement one that generates a public and private key pair and tries to use CVC5 to check if it is a proper RSA configuration but it cannot handle anything over 32 Bits.
+When it comes to the experiments, I refrained from using completely randomized approaches since they typically don't accurately showcase how performance is dispersed. So I didn't really want to utilize a RSA library in python that is actively maximizing randomness however I did implement one that generates a public and private key pair and tries to use CVC5 to check if it is a proper RSA configuration but it cannot handle anything over 32 Bits.
